@@ -1,39 +1,26 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import "./covid.scss";
+import React, { Fragment } from "react";
+import "../styles/covid.scss";
 import dayjs from "dayjs";
+import useFetch from "../Custom/Fetch";
+import Loading from "./Loading";
+import Count from "./Countdown";
 const Covid = () => {
-  const [dataCovid, setDataCovid] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const date = new Date();
-  let d = date.getDay();
-  let m = date.getMonth();
-  let y = date.getFullYear();
+  const date = new Date(new Date().setHours(0, 0, 0, 0));
   const dateCurrent = dayjs(date).format("YYYY-MM-DD");
-  if (d <= 30) {
-    d = d - 30;
-  }
-  const dateOld = new Date(y, m, d);
+  const dateOld = dayjs(Date.now()).subtract(31, "days");
   const dateOldest = dayjs(dateOld).format("YYYY-MM-DD");
-  useEffect(async () => {
-    setTimeout(async () => {
-      let res = await axios.get(
-        `https://api.covid19api.com/country/vietnam?from=${dateOldest}T00%3A00%3A00Z&to=${dateCurrent}T00%3A00%3A00Z`
-      );
-      let data = res && res.data ? res.data : [];
-      if (data && data.length > 0) {
-        data.map((item) => {
-          item.Date = dayjs(item.Date).format("DD/MM/YYYY");
-          return item;
-        });
-      }
-      setDataCovid(data);
-      setLoading(false);
-    }, 3000);
-  }, []);
+  const {
+    data: dataCovid,
+    loading,
+    isError,
+  } = useFetch(
+    `https://api.covid19api.com/country/vietnam?from=${dateOldest}T00%3A00%3A00Z&to=${dateCurrent}T00%3A00%3A00Z`,
+    true
+  );
+
   return (
     <div className="list-covid">
+      <Count />
       <h2>Covid 19</h2>
       <table>
         <thead>
@@ -46,27 +33,37 @@ const Covid = () => {
           </tr>
         </thead>
         <tbody>
-          {loading === false &&
+          {isError === false &&
+            loading === false &&
             dataCovid &&
             dataCovid.length > 0 &&
             dataCovid.map((item, index) => {
               return (
-                <>
-                  <tr key={index}>
+                <Fragment>
+                  <tr className="item" key={index}>
                     <td>{item.Date}</td>
                     <td>{item.Confirmed}</td>
                     <td>{item.Active}</td>
                     <td>{item.Deaths}</td>
                     <td>{item.Recovered}</td>
                   </tr>
-                </>
+                </Fragment>
               );
             })}
           {loading === true && (
             <>
               <tr>
                 <td colSpan={5} style={{ textAlign: "center" }}>
-                  loading...
+                  <Loading />
+                </td>
+              </tr>
+            </>
+          )}
+          {isError === true && (
+            <>
+              <tr>
+                <td colSpan={5} style={{ textAlign: "center" }}>
+                  Error.........
                 </td>
               </tr>
             </>
