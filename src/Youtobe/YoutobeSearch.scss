@@ -1,0 +1,56 @@
+.youtobe-search-container {
+  margin-top: 30px;
+  .yt-search {
+    .input-search {
+      outline: none;
+      width: 536px;
+      height: 40px;
+      padding: 0px 10px;
+      border: 2px solid #cccc;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+    .button-search {
+      height: 40px;
+      font-size: 15px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+  .yt-content {
+    margin: 40px;
+    padding: 40px 20px 10px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    .yt-searchList {
+      display: flex;
+      margin-bottom: 20px;
+      .yt-content-item {
+        display: flex;
+        margin-right: 16px;
+        max-width: 540px;
+      }
+      .yt-searchContent {
+        line-height: 40px;
+        text-align: left;
+        font-size: 18px;
+        .title {
+          color: #030303;
+          font-family: "Roboto", "Arial", sans-serif;
+          font-size: 1.6rem;
+          line-height: 2.6rem;
+          font-weight: 400;
+          max-height: 5.2rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+        }
+        .create-at {
+        }
+        .description {
+        }
+      }
+    }
+  }
+}

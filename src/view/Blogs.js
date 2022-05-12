@@ -3,6 +3,7 @@ import useFetch from "../Custom/Fetch";
 import "../styles/Blogs.scss";
 import Loading from "./Loading";
 import Modal from "./Modal";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 const Blogs = () => {
@@ -26,6 +27,18 @@ const Blogs = () => {
     setIsModal(true);
   };
   const handleOnClickCloseModal = () => setIsModal(false);
+  const handleOnClickCloseBlog = (item) => {
+    axios
+      .delete(
+        `https://61b561e90e84b70017331af3.mockapi.io/API/Facebook/Blog/${item.id}`,
+        item
+      )
+      .then((data) => {
+        let newData = newDataBlog;
+        newData = newData.filter((value) => value.id !== data.data.id);
+        setNewDataBlog(newData);
+      });
+  };
   const handleAddBlog = (blog) => {
     let data = newDataBlog;
     data.unshift(blog);
@@ -54,6 +67,10 @@ const Blogs = () => {
                     <div className="title">{item.name}</div>
                     <div className="blog-content">{item.content}</div>
                     <img src={item.avatar} alt="" />
+                    <i
+                      onClick={() => handleOnClickCloseBlog(item)}
+                      className="fas fa-times"
+                    ></i>
                   </div>
                 </>
               );

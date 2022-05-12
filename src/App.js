@@ -3,6 +3,7 @@ import Covid from "./view/Covid";
 import Blog from "./view/Blogs";
 import BlogDetail from "./BlogDetail/BlogDetail";
 import Nav from "./Nav/Nav";
+import YoutobeSearch from "./Youtobe/YoutobeSearch";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" />
           <Route path="/Covid" exact element={<Covid />} />
-          <Route path="/About" />
+          <Route path="/Youtobe" exact element={<YoutobeSearch />} />
           <Route path="/blog" exact element={<Blog />} />
           <Route path="/blog/:id" exact element={<BlogDetail />} />
         </Routes>

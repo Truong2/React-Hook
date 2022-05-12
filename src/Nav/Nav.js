@@ -1,6 +1,6 @@
 import React from "react";
 import "./Nav.scss";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Nav = () => {
   return (
     <div>
@@ -11,8 +11,8 @@ const Nav = () => {
         <NavLink to="/Covid" activeclassname="active">
           Covid
         </NavLink>
-        <NavLink to="/About" activeclassname="active">
-          About
+        <NavLink to="/Youtobe" activeclassname="active">
+          Youtobe Search
         </NavLink>
         <NavLink to="/blog" activeclassname="active">
           Blog
